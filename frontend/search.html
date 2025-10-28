@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MediNow - Search Medicines</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+  <!-- Header -->
+  <header class="bg-white shadow">
+    <div class="max-w-6xl mx-auto flex items-center justify-between px-4 py-3">
+      <a href="index.html" class="flex items-center gap-2">
+        <div class="bg-blue-600 text-white font-bold rounded-full w-10 h-10 flex items-center justify-center">M</div>
+        <span class="font-semibold">MediNow</span>
+      </a>
+      <nav class="flex gap-4 text-sm">
+        <a href="search.html" class="font-semibold">Search</a>
+        <a href="stores.html">Stores</a>
+        <a href="cart.html">🛒 Cart</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Content -->
+  <main class="max-w-6xl mx-auto px-4 py-12">
+    <h1 class="text-3xl font-bold mb-6">Search Medicines</h1>
+
+    <div class="flex gap-2 mb-8">
+      <input id="search-input" type="text" placeholder="Enter medicine name..." class="flex-1 px-4 py-2 border rounded-lg" oninput="searchMedicine()">
+      <button onclick="goToStores()" class="px-4 py-2 bg-green-600 text-white rounded-lg">Find Nearby Stores</button>
+    </div>
+
+    <div id="results" class="grid md:grid-cols-3 gap-6"></div>
+  </main>
+
+  <script>
+    // Medicine Data (no images)
+    const medicines = [
+      { name: "Paracetamol 500mg", desc: "Pain reliever and fever reducer", price: "$1.99" },
+      { name: "Ibuprofen 200mg", desc: "Reduces inflammation and pain", price: "$3.49" },
+      { name: "Cetirizine 10mg", desc: "Allergy relief antihistamine", price: "$4.29" },
+      { name: "Amoxicillin 250mg", desc: "Antibiotic for bacterial infections", price: "$5.99" },
+      { name: "Metformin 500mg", desc: "Used to control blood sugar levels", price: "$6.49" },
+      { name: "Azithromycin 500mg", desc: "Antibiotic used for bacterial infections", price: "$7.99" },
+      { name: "Loratadine 10mg", desc: "Allergy and hay fever relief", price: "$2.99" },
+      { name: "Omeprazole 20mg", desc: "Reduces stomach acid production", price: "$4.99" },
+      { name: "Simvastatin 20mg", desc: "Lowers cholesterol levels", price: "$5.49" },
+      { name: "Aspirin 81mg", desc: "Pain relief and heart health", price: "$3.19" }
+    ];
+
+    const resultsDiv = document.getElementById('results');
+    const searchInput = document.getElementById('search-input');
+
+    // Display all medicines initially
+    displayResults(medicines);
+
+    // Search Function
+    function searchMedicine() {
+      const query = searchInput.value.toLowerCase();
+      const filtered = medicines.filter(med => med.name.toLowerCase().includes(query));
+      displayResults(filtered);
+    }
+
+    // Display Results
+    function displayResults(list) {
+      resultsDiv.innerHTML = '';
+      if(list.length === 0){
+        resultsDiv.innerHTML = '<p class="text-gray-600 col-span-3">No medicines found.</p>';
+      } else {
+        list.forEach(med => {
+          const card = document.createElement('div');
+          card.className = "bg-white shadow rounded-lg p-4 flex flex-col";
+          card.innerHTML = `
+            <h2 class="font-semibold">${med.name}</h2>
+            <p class="text-gray-600 text-sm">${med.desc}</p>
+            <p class="mt-2 font-bold">${med.price}</p>
+            <button onclick="addToCart('${med.name}', '${med.price}')" class="mt-3 w-full px-4 py-2 bg-blue-600 text-white rounded">Add to Cart</button>
+          `;
+          resultsDiv.appendChild(card);
+        });
+      }
+    }
+
+    // Add to Cart
+    function addToCart(name, price) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const existing = cart.find(item => item.name === name);
+      if(existing){
+        existing.qty += 1;
+      } else {
+        cart.push({ name, price, qty: 1 });
+      }
+      localStorage.setItem('cart', JSON.stringify(cart));
+      alert(`${name} added to cart!`);
+    }
+
+    // Go to Stores with medicine query
+    function goToStores() {
+      const medicine = searchInput.value.trim();
+      if(medicine) {
+        window.location.href = `stores.html?medicine=${encodeURIComponent(medicine)}`;
+      } else {
+        alert("Please enter a medicine name to find stores.");
+      }
+    }
+  </script>
+</body>
+</html>

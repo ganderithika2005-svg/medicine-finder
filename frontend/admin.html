@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MediNow - Admin Panel</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+  <!-- Header -->
+  <header class="bg-white shadow">
+    <div class="max-w-6xl mx-auto flex items-center justify-between px-4 py-3">
+      <a href="index.html" class="flex items-center gap-2">
+        <div class="bg-blue-600 text-white font-bold rounded-full w-10 h-10 flex items-center justify-center">M</div>
+        <span class="font-semibold">MediNow</span>
+      </a>
+      <nav class="flex gap-4 text-sm">
+        <a href="search.html">Search</a>
+        <a href="stores.html">Stores</a>
+        <a href="orders.html">Orders</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="cart.html">🛒 Cart</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Content -->
+  <main class="max-w-6xl mx-auto px-4 py-12">
+    <h1 class="text-3xl font-bold mb-6">Pharmacy Admin Panel</h1>
+
+    <div class="grid md:grid-cols-2 gap-6">
+      <!-- Stock management -->
+      <div class="bg-white shadow rounded-lg p-6">
+        <h2 class="text-xl font-semibold mb-4">Manage Stock</h2>
+        <form class="space-y-4">
+          <input type="text" placeholder="Medicine Name" class="w-full px-4 py-2 border rounded-lg">
+          <input type="number" placeholder="Quantity" class="w-full px-4 py-2 border rounded-lg">
+          <input type="number" placeholder="Price" class="w-full px-4 py-2 border rounded-lg">
+          <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg">Update Stock</button>
+        </form>
+      </div>
+
+      <!-- Orders -->
+      <div class="bg-white shadow rounded-lg p-6">
+        <h2 class="text-xl font-semibold mb-4">Incoming Orders</h2>
+        <ul class="space-y-3">
+          <li class="p-3 border rounded flex justify-between items-center">
+            <div>
+              <p class="font-semibold">Order #1003</p>
+              <p class="text-sm text-gray-600">Paracetamol x2</p>
+            </div>
+            <button class="px-3 py-1 bg-green-600 text-white rounded">Mark Ready</button>
+          </li>
+          <li class="p-3 border rounded flex justify-between items-center">
+            <div>
+              <p class="font-semibold">Order #1004</p>
+              <p class="text-sm text-gray-600">Ibuprofen x1</p>
+            </div>
+            <button class="px-3 py-1 bg-green-600 text-white rounded">Mark Ready</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-100 border-t mt-12">
+    <div class="max-w-6xl mx-auto px-4 py-6 text-sm text-gray-600">
+      © 2025 MediNow. All rights reserved.
+    </div>
+  </footer>
+</body>
+</html>

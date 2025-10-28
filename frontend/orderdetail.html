@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MediNow - Order Details</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+  <header class="bg-white shadow">
+    <div class="max-w-6xl mx-auto flex items-center justify-between px-4 py-3">
+      <a href="index.html" class="flex items-center gap-2">
+        <div class="bg-blue-600 text-white font-bold rounded-full w-10 h-10 flex items-center justify-center">M</div>
+        <span class="font-semibold">MediNow</span>
+      </a>
+      <nav class="flex gap-4 text-sm">
+        <a href="search.html">Search</a>
+        <a href="stores.html">Stores</a>
+        <a href="order.html" class="font-semibold">Orders</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="cart.html">🛒 Cart</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-3xl mx-auto px-4 py-12">
+    <h1 class="text-3xl font-bold mb-6" id="order-id">Order Details</h1>
+
+    <div id="order-container" class="bg-white shadow rounded-lg p-6 space-y-4"></div>
+  </main>
+
+  <footer class="bg-gray-100 border-t mt-12">
+    <div class="max-w-6xl mx-auto px-4 py-6 text-sm text-gray-600">
+      © 2025 MediNow. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    async function fetchOrderDetail() {
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get("id");
+      if (!id) return;
+
+      try {
+        const res = await fetch(`http://localhost:5000/api/orders/id/${id}`);
+        const order = await res.json();
+
+        if (!order) return;
+
+        document.getElementById("order-id").innerText = `Order #${order._id}`;
+        const container = document.getElementById("order-container");
+        container.innerHTML = `
+          <div>
+            <h2 class="font-semibold">Items</h2>
+            <ul class="list-disc pl-5 text-gray-700">
+              ${order.items.map(item => `<li>${item}</li>`).join("")}
+            </ul>
+          </div>
+          <div>
+            <h2 class="font-semibold">Delivery Address</h2>
+            <p class="text-gray-700">${order.address}</p>
+          </div>
+          <div>
+            <h2 class="font-semibold">Payment Method</h2>
+            <p class="text-gray-700">${order.paymentMethod}</p>
+          </div>
+          <div>
+            <h2 class="font-semibold">Status</h2>
+            <p class="${order.status === "Delivered" ? "text-blue-600" : "text-green-600"} font-bold">${order.status}</p>
+          </div>
+          <div>
+            <h2 class="font-semibold">Total</h2>
+            <p class="font-bold">$${order.total.toFixed(2)}</p>
+          </div>
+        `;
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    fetchOrderDetail();
+  </script>
+</body>
+</html>

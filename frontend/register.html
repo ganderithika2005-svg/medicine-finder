@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MediNow - Register</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+  <!-- Header -->
+  <header class="bg-white shadow">
+    <div class="max-w-6xl mx-auto flex items-center justify-between px-4 py-3">
+      <a href="index.html" class="flex items-center gap-2">
+        <div class="bg-blue-600 text-white font-bold rounded-full w-10 h-10 flex items-center justify-center">M</div>
+        <span class="font-semibold">MediNow</span>
+      </a>
+      <nav class="flex gap-4 text-sm">
+        <a href="search.html">Search</a>
+        <a href="stores.html">Stores</a>
+        <a href="cart.html">🛒 Cart</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Registration Form -->
+  <main class="max-w-md mx-auto px-4 py-12">
+    <h1 class="text-3xl font-bold mb-6">Register</h1>
+
+    <form id="register-form" class="space-y-4 bg-white shadow rounded-lg p-6">
+      <div>
+        <label class="block text-sm font-medium mb-2">Full Name</label>
+        <input id="fullname" type="text" required class="w-full px-4 py-2 border rounded-lg">
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-2">Email</label>
+        <input id="email" type="email" required class="w-full px-4 py-2 border rounded-lg">
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-2">Password</label>
+        <input id="password" type="password" required class="w-full px-4 py-2 border rounded-lg">
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-2">Confirm Password</label>
+        <input id="confirm-password" type="password" required class="w-full px-4 py-2 border rounded-lg">
+      </div>
+      <button type="submit" class="w-full py-3 bg-blue-600 text-white rounded-lg">Register</button>
+    </form>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-100 border-t mt-12">
+    <div class="max-w-6xl mx-auto px-4 py-6 text-sm text-gray-600">
+      © 2025 MediNow. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    const form = document.getElementById('register-form');
+
+    form.addEventListener('submit', async function(e){
+      e.preventDefault();
+
+      const fullname = document.getElementById('fullname').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirm-password').value;
+
+      if(password !== confirmPassword){
+        alert("Passwords do not match!");
+        return;
+      }
+
+      try {
+        const response = await fetch("http://localhost:5000/api/users/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ fullname, email, password })
+        });
+
+        const data = await response.json();
+        if(data.success){
+          alert("Registration successful! Please login.");
+          window.location.href = "login.html";
+        } else {
+          alert("Error: " + data.message);
+        }
+      } catch (err) {
+        alert("Server error: " + err.message);
+      }
+    });
+  </script>
+</body>
+</html>

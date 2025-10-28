@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MediNow - Home</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+
+  <!-- Header -->
+  <header class="bg-white shadow-md sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto flex items-center justify-between px-6 py-4">
+      <!-- Logo -->
+      <a href="index.html" class="flex items-center gap-2">
+        <div class="bg-blue-600 text-white font-bold rounded-full w-10 h-10 flex items-center justify-center">M</div>
+        <span class="font-semibold text-lg">MediNow</span>
+      </a>
+
+      <!-- Navigation -->
+      <nav class="flex items-center gap-6 text-gray-700 font-medium">
+        <a href="search.html" class="hover:text-blue-600">Search</a>
+        <a href="stores.html" class="hover:text-blue-600">Stores</a>
+        <a href="order.html" class="hover:text-blue-600">Orders</a>
+        <a href="about.html" class="hover:text-blue-600">About</a>
+        <a href="contact.html" class="hover:text-blue-600">Contact</a>
+        <a href="cart.html" class="hover:text-blue-600">🛒 Cart</a>
+
+        <!-- Divider -->
+        <span class="border-l border-gray-300 h-6 mx-2"></span>
+
+        <!-- Login & Register Buttons -->
+        <a href="login.html" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">Login</a>
+        <a href="register.html" class="px-4 py-2 border border-blue-500 text-blue-600 rounded-lg hover:bg-blue-50 transition">Register</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <main class="max-w-6xl mx-auto px-6 py-16">
+    <section class="grid md:grid-cols-2 gap-12 items-center">
+      <div>
+        <h1 class="text-5xl font-bold text-gray-900 leading-tight">Get Medicines Delivered Fast & Easy</h1>
+        <p class="mt-6 text-gray-600 text-lg">Search thousands of medicines, check availability in nearby pharmacies, and get them delivered to your doorstep in no time. Upload prescription for restricted medicines.</p>
+        <div class="mt-8 flex flex-wrap gap-4">
+          <a href="search.html" class="px-6 py-3 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition">Search Medicines</a>
+          <a href="stores.html" class="px-6 py-3 border border-gray-300 rounded-lg hover:bg-gray-100 transition">Find Stores</a>
+        </div>
+        <p class="mt-4 text-sm text-gray-500">Available 24/7. Safe and secure delivery.</p>
+      </div>
+      <div>
+        <img src="https://via.placeholder.com/500x400?text=MediNow+App+Screenshot" alt="MediNow App" class="rounded-lg shadow-lg">
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="mt-20 grid md:grid-cols-3 gap-8 text-center">
+      <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition">
+        <img src="https://img.icons8.com/color/96/000000/search--v1.png" class="mx-auto mb-4" alt="Search">
+        <h3 class="text-xl font-semibold mb-2">Easy Search</h3>
+        <p class="text-gray-600 text-sm">Quickly find any medicine from thousands of options.</p>
+      </div>
+      <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition">
+        <img src="https://img.icons8.com/color/96/000000/delivery--v1.png" class="mx-auto mb-4" alt="Delivery">
+        <h3 class="text-xl font-semibold mb-2">Fast Delivery</h3>
+        <p class="text-gray-600 text-sm">Get your medicines delivered safely to your doorstep.</p>
+      </div>
+      <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition">
+        <img src="https://img.icons8.com/color/96/000000/pharmacy-shop.png" class="mx-auto mb-4" alt="Stores">
+        <h3 class="text-xl font-semibold mb-2">Nearby Stores</h3>
+        <p class="text-gray-600 text-sm">Check medicine availability in pharmacies near you.</p>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="mt-20">
+      <h2 class="text-3xl font-bold text-center mb-12">What Our Users Say</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-white p-6 rounded-lg shadow">
+          <p class="text-gray-600 mb-4">"MediNow makes it so easy to get my medicines without leaving home. Fast and reliable!"</p>
+          <h4 class="font-semibold">- Sarah L.</h4>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow">
+          <p class="text-gray-600 mb-4">"I love the app! Uploading prescriptions is simple, and delivery is always on time."</p>
+          <h4 class="font-semibold">- John D.</h4>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow">
+          <p class="text-gray-600 mb-4">"Finding nearby pharmacies and checking medicine stock has never been easier."</p>
+          <h4 class="font-semibold">- Priya M.</h4>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="mt-20 text-center">
+      <h2 class="text-3xl font-bold mb-6">Ready to order your medicines?</h2>
+      <a href="search.html" class="px-8 py-4 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition text-lg">Start Searching</a>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-100 border-t mt-20">
+    <div class="max-w-6xl mx-auto px-6 py-8 flex flex-col md:flex-row justify-between items-center text-gray-600 text-sm">
+      <p>© 2025 MediNow. All rights reserved.</p>
+      <div class="flex gap-4 mt-4 md:mt-0">
+        <a href="#" class="hover:text-blue-600">Privacy Policy</a>
+        <a href="#" class="hover:text-blue-600">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

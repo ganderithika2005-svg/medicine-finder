@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MediNow - Checkout</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+  <!-- Header -->
+  <header class="bg-white shadow">
+    <div class="max-w-6xl mx-auto flex items-center justify-between px-4 py-3">
+      <a href="index.html" class="flex items-center gap-2">
+        <div class="bg-blue-600 text-white font-bold rounded-full w-10 h-10 flex items-center justify-center">M</div>
+        <span class="font-semibold">MediNow</span>
+      </a>
+      <nav class="flex gap-4 text-sm">
+        <a href="search.html">Search</a>
+        <a href="stores.html">Stores</a>
+        <a href="order.html">Orders</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Content -->
+  <main class="max-w-3xl mx-auto px-4 py-12">
+    <h1 class="text-3xl font-bold mb-6">Checkout</h1>
+    
+    <form id="checkout-form" class="space-y-6 bg-white shadow rounded-lg p-6">
+      <div>
+        <label class="block text-sm font-medium mb-2">Full Name</label>
+        <input type="text" id="fullname" class="w-full px-4 py-2 border rounded-lg" required>
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-2">Delivery Address</label>
+        <textarea id="address" class="w-full px-4 py-2 border rounded-lg" required></textarea>
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-2">Payment Method</label>
+        <select id="payment-method" class="w-full px-4 py-2 border rounded-lg">
+          <option>Cash on Delivery</option>
+          <option>Credit/Debit Card</option>
+          <option>UPI / Wallet</option>
+        </select>
+      </div>
+      <button type="submit" class="w-full py-3 bg-blue-600 text-white rounded-lg">Place Order</button>
+    </form>
+  </main>
+
+  <script>
+    const form = document.getElementById('checkout-form');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const user = JSON.parse(localStorage.getItem('loggedInUser'));
+      if(!user){
+        alert("Please login first!");
+        return;
+      }
+
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      if(cart.length === 0){
+        alert("Your cart is empty!");
+        return;
+      }
+
+      const total = cart.reduce((sum, item) => sum + parseFloat(item.price.replace('$','')) * item.qty, 0);
+
+      const orderData = {
+        email: user.email,
+        items: cart.map(i => `${i.name} x${i.qty}`),
+        total: total,
+        address: document.getElementById('address').value,
+        status: "Pending",
+        date: new Date()
+      };
+
+      try {
+        const response = await fetch('http://localhost:5000/api/orders', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(orderData)
+        });
+        const result = await response.json();
+
+        if(result.success){
+          alert("✅ Order placed successfully!");
+          localStorage.removeItem('cart');
+          window.location.href = 'order.html';
+        } else {
+          alert("❌ Error: " + result.message);
+        }
+      } catch(err){
+        alert("❌ Error: " + err.message);
+      }
+    });
+  </script>
+
+</body>
+</html>
